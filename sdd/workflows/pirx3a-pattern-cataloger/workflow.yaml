@@ -16,7 +16,7 @@ items:
     spec_status: approved
     plan_status: approved
     impl_status: complete
-    review_status: pending
+    review_status: approved
     substep: null
     depends_on: []
     location: changes/2026/06/03/pirx3a-pattern-cataloger/01-pattern-cataloger
