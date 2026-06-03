@@ -101,7 +101,7 @@ class PatternAnalyzer
   end
 
   def extract_sizes(text)
-    match = text.match(/(?:sizes?\s*[:\-]?\s*)([XSML\d\s()/,–-]+)/i)
+    match = text.match(/(?:sizes?\s*[:\-]?\s*)([XSML\d\s()\/,–\-]+)/i)
     match ? match[1].strip : nil
   end
 
