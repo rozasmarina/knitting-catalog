@@ -24,6 +24,9 @@ class YarnWeightInferrer
   end
 
   def infer
+    # Without any signal, fall back to keyword only
+    return keyword_match if @sts.nil? && @needle.nil?
+
     candidates = matching_weights
     return keyword_match if candidates.empty?
     return candidates.first if candidates.size == 1
