@@ -15,7 +15,7 @@ items:
     type: feature
     spec_status: approved
     plan_status: approved
-    impl_status: pending
+    impl_status: complete
     review_status: pending
     substep: null
     depends_on: []
