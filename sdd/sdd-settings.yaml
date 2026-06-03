@@ -1,0 +1,18 @@
+# ============================================================================
+# SDD PROJECT SETTINGS - DO NOT EDIT MANUALLY
+# ============================================================================
+# This file is generated and maintained by SDD commands.
+# To modify settings, use: /sdd with natural language about settings
+# ============================================================================
+
+sdd:
+  initialized_by_plugin_version: "7.3.0"
+  updated_by_plugin_version: "7.3.0"
+  initialized_at: "2026-06-03 00:00:00Z"
+  updated_at: "2026-06-03 00:00:00Z"
+
+project:
+  name: "knitting-catalog"
+
+# No tech pack registered — this is a Ruby project.
+# Tech packs and components can be added here during implementation.
