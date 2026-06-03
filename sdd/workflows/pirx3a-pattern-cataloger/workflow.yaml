@@ -1,0 +1,22 @@
+id: pirx3a
+name: pattern-cataloger
+source: interactive
+created_at: "2026-06-03T00:00:00Z"
+updated_at: "2026-06-03T00:00:00Z"
+branch: feature/pattern-cataloger
+
+step: spec_creation
+phase: spec
+
+items: []
+
+progress:
+  total_items: 0
+  specs_completed: 0
+  specs_pending: 0
+  plans_completed: 0
+  plans_pending: 0
+  implemented: 0
+  reviewed: 0
+
+current: null
