@@ -14,7 +14,7 @@ items:
     title: Pattern Cataloger
     type: feature
     spec_status: approved
-    plan_status: ready_for_review
+    plan_status: approved
     impl_status: pending
     review_status: pending
     substep: null
