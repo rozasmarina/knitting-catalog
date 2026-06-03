@@ -13,8 +13,8 @@ items:
     change_id: pattern-cataloger-1
     title: Pattern Cataloger
     type: feature
-    spec_status: ready_for_review
-    plan_status: pending
+    spec_status: approved
+    plan_status: ready_for_review
     impl_status: pending
     review_status: pending
     substep: null
