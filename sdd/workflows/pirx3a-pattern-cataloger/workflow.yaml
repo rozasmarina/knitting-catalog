@@ -8,15 +8,26 @@ branch: feature/pattern-cataloger
 step: spec_creation
 phase: spec
 
-items: []
+items:
+  - id: 01-pattern-cataloger
+    change_id: pattern-cataloger-1
+    title: Pattern Cataloger
+    type: feature
+    spec_status: in_progress
+    plan_status: pending
+    impl_status: pending
+    review_status: pending
+    substep: solicitation
+    depends_on: []
+    location: sdd/workflows/pirx3a-pattern-cataloger/drafts/01-pattern-cataloger
 
 progress:
-  total_items: 0
+  total_items: 1
   specs_completed: 0
-  specs_pending: 0
+  specs_pending: 1
   plans_completed: 0
-  plans_pending: 0
+  plans_pending: 1
   implemented: 0
   reviewed: 0
 
-current: null
+current: pattern-cataloger-1
