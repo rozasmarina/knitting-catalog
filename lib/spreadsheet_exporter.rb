@@ -28,7 +28,7 @@ class SpreadsheetExporter
       csv << Pattern.csv_headers
       @patterns.each { |p| csv << p.to_csv_row }
     end
-    puts "Catálogo gravado: #{@output_path} (#{@patterns.size} receitas)"
+    puts "Catálogo gravado: #{File.expand_path(@output_path)} (#{@patterns.size} receitas)"
   end
 
   def write_failures
@@ -38,6 +38,6 @@ class SpreadsheetExporter
       csv << %w[arquivo caminho_completo erro]
       @failures.each { |entry| csv << [entry[:arquivo], entry[:caminho_completo], entry[:erro]] }
     end
-    puts "Falhas gravadas: #{@failures_path} (#{@failures.size} entradas)"
+    puts "Falhas gravadas: #{File.expand_path(@failures_path)} (#{@failures.size} entradas)"
   end
 end
