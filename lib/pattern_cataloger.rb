@@ -29,6 +29,7 @@ class PatternCataloger
     puts "Reaproveitando #{reused.size} entradas existentes, processando #{to_process.size} arquivos..."
 
     new_patterns, failures = process_files(to_process)
+    failures += extraction_warnings(new_patterns)
 
     all_patterns = reused + new_patterns
     DuplicateDetector.mark!(all_patterns)
@@ -85,6 +86,20 @@ class PatternCataloger
     end
 
     [to_process, reused]
+  end
+
+  def extraction_warnings(patterns)
+    warnings = []
+    patterns.each do |p|
+      if p.extraction_status == "failed"
+        warnings << { arquivo: p.arquivo, caminho_completo: p.caminho_completo,
+                      erro: "Extração falhou — PDF possivelmente image-only sem OCR disponível" }
+      elsif p.yarn_weight.nil?
+        warnings << { arquivo: p.arquivo, caminho_completo: p.caminho_completo,
+                      erro: "yarn_weight não detectado — preencher manualmente" }
+      end
+    end
+    warnings
   end
 
   def process_files(paths)

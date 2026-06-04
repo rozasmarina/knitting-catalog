@@ -15,6 +15,9 @@ class FilenameParser
     match = CONVENTION.match(basename)
     return { pattern_name: nil, designer: nil } unless match
 
-    { pattern_name: match[1].strip, designer: match[2].strip }
+    name = match[1].strip.gsub(/\A[\d\-]+\s+/, "")  # strip leading "1213-01 "
+    designer = match[2].strip.gsub(/\s*\(\d+\)\z/, "")  # strip trailing "(1)"
+
+    { pattern_name: name, designer: designer }
   end
 end

@@ -4,14 +4,18 @@ class YarnParser
   # Matches "100g", "100 grams", "100g/skein"
   GRAMS_PER_SKEIN = /(\d+)\s*g(?:rams?)?(?:\s*\/\s*(?:skein|ball|hank))?/i
 
-  # Matches "200m", "200 meters", "200 metres"
-  METERS_PER_SKEIN = /(\d+)\s*m(?:et(?:re|er)s?)?(?:\s*\/\s*(?:skein|ball|hank))?/i
+  # Matches "200m", "200 meters", "200 metres" — (?!m) prevents matching "mm"
+  METERS_PER_SKEIN = /(\d+)\s*m(?!m)\b(?:et(?:re|er)s?)?(?:\s*\/\s*(?:skein|ball|hank))?/i
 
   # Matches "218yd", "218 yards"
-  YARDS_PER_SKEIN = /(\d+)\s*y(?:ar)?d?s?(?:\s*\/\s*(?:skein|ball|hank))?/i
+  YARDS_PER_SKEIN = /(\d+)\s*y(?:ar)?d?s?\b(?:\s*\/\s*(?:skein|ball|hank))?/i
 
-  # Matches yarn name lines like "Yarn: Drops Lima" or "Suggested yarn: ..."
-  YARN_NAME = /(?:yarn|suggested yarn|recommended yarn)\s*[:\-]\s*([^\n\r,]{3,50})/i
+  # Matches yarn name from common label patterns
+  YARN_NAME = /
+    (?:yarn|suggested\s+yarn|recommended\s+yarn|sample\s+(?:knitted|worked)\s+in|worked\s+in|using)\s*[:\-]?\s*([^\n\r,\.]{3,60})
+    |
+    \b(?:MC|CC)\s*[:\-]\s*([A-Z][^\n\r,]{3,50})
+  /xi
 
   # Total grams: "approx. 450g total", "you'll need 450g", "400-500g"
   TOTAL_GRAMS = /(?:approx\.?\s*)?(\d+)\s*(?:-\s*\d+\s*)?g(?:rams?)?\s*(?:total|in total|of\s+yarn)?/i
@@ -43,7 +47,8 @@ class YarnParser
 
   def extract_yarn_name
     match = YARN_NAME.match(@text)
-    match ? match[1].strip : nil
+    return nil unless match
+    (match[1] || match[2])&.strip
   end
 
   def extract_grams_per_skein

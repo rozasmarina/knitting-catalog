@@ -5,7 +5,8 @@ class TechniqueDetector
     cables:    /\b(?:cables?|aran)\b/i,
     colorwork: /\b(?:colorwork|colour\s*work|fair\s*isle|stranded|intarsia)\b/i,
     brioche:   /\bbrioche\b/i,
-    short_rows: /\b(?:short\s+rows?|german\s+short\s+rows?|wrap\s+and\s+turn)\b/i
+    short_rows:  /\b(?:short\s+rows?|german\s+short\s+rows?|wrap\s+and\s+turn)\b/i,
+    held_double: /\bheld\s+double\b|\bheld\s+together\b|\b2\s+strands?\b|\btwo\s+strands?\b/i
   }.freeze
 
   def self.detect(text)

@@ -43,6 +43,7 @@ Pattern = Struct.new(
   :colorwork,
   :brioche,
   :short_rows,
+  :held_double,
 
   # Other
   :sizes,
@@ -69,6 +70,8 @@ Pattern = Struct.new(
 
   def normalize(str)
     return "" if str.nil?
-    str.downcase.gsub(/[^a-z0-9]/, "")
+    str.downcase
+       .gsub(/\s*\(\d+\)\s*/, " ")  # strip "(1)", "(2)" suffixes
+       .gsub(/[^a-z0-9]/, "")
   end
 end
