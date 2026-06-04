@@ -21,13 +21,27 @@ sudo apt-get install tesseract-ocr poppler-utils
 Install Ruby gems:
 
 ```bash
-bundle install
+# Use the rbenv Ruby 3.x (system Ruby on macOS is too old)
+~/.rbenv/versions/3.3.8/bin/bundle install
 ```
+
+> **Tip:** To avoid typing the full path every time, add rbenv to your shell:
+> ```bash
+> echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
+> source ~/.zshrc
+> ```
+> After that, `bundle install` and `ruby` will use the correct version automatically.
 
 ## Usage
 
 ```bash
-ruby cataloger.rb /path/to/patterns/
+~/.rbenv/versions/3.3.8/bin/bundle exec ~/.rbenv/versions/3.3.8/bin/ruby cataloger.rb /path/to/patterns/
+```
+
+Or, after configuring rbenv in your shell (see above):
+
+```bash
+bundle exec ruby cataloger.rb /path/to/patterns/
 ```
 
 Output: `catalogo_receitas.csv` (UTF-8 with BOM for Excel compatibility)
