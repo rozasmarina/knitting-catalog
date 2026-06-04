@@ -10,11 +10,14 @@ class YarnParser
   # Matches "218yd", "218 yards"
   YARDS_PER_SKEIN = /(\d+)\s*y(?:ar)?d?s?\b(?:\s*\/\s*(?:skein|ball|hank))?/i
 
-  # Matches yarn name from common label patterns
+  # Matches yarn name from common label patterns.
+  # Note: "using" and bare "yarn" (without colon) are intentionally excluded — too many false positives.
   YARN_NAME = /
-    (?:yarn|suggested\s+yarn|recommended\s+yarn|sample\s+(?:knitted|worked)\s+in|worked\s+in|using)\s*[:\-]?\s*([^\n\r,\.]{3,60})
+    (?:suggested\s+yarn|recommended\s+yarn|yarn)\s*[:\-]\s*([^\n\r,\.]{3,50})
     |
-    \b(?:MC|CC)\s*[:\-]\s*([A-Z][^\n\r,]{3,50})
+    (?:sample\s+(?:knitted|worked)\s+in|worked\s+in|knit(?:ted)?\s+in)\s*[:\-]?\s*([^\n\r,\.\[]{3,50})
+    |
+    \b(?:MC|CC)\s*[:\-]\s*([A-Z][^\n\r,\.\[]{2,50})
   /xi
 
   # Total grams: "approx. 450g total", "you'll need 450g", "400-500g"
@@ -48,7 +51,7 @@ class YarnParser
   def extract_yarn_name
     match = YARN_NAME.match(@text)
     return nil unless match
-    (match[1] || match[2])&.strip
+    (match[1] || match[2] || match[3])&.strip
   end
 
   def extract_grams_per_skein

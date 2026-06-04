@@ -30,5 +30,20 @@ RSpec.describe FilenameParser do
       expect(result[:pattern_name]).to eq("My Pattern")
       expect(result[:designer]).to eq("Designer Name")
     end
+
+    it "strips 'Cópia de' prefix from pattern name" do
+      result = described_class.parse("Cópia de My Favourite Things - Designer.pdf")
+      expect(result[:pattern_name]).to eq("My Favourite Things")
+    end
+
+    it "strips 'Copia de' prefix (without accent)" do
+      result = described_class.parse("Copia de Some Pattern - Designer.pdf")
+      expect(result[:pattern_name]).to eq("Some Pattern")
+    end
+
+    it "strips 'Copy of' prefix from pattern name" do
+      result = described_class.parse("Copy of Some Pattern - Designer.pdf")
+      expect(result[:pattern_name]).to eq("Some Pattern")
+    end
   end
 end

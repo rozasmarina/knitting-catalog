@@ -25,7 +25,7 @@ Install Ruby gems:
 ~/.rbenv/versions/3.3.8/bin/bundle install
 ```
 
-> **Tip:** To avoid typing the full path every time, add rbenv to your shell:
+> **Dica:** Para não precisar digitar o caminho completo toda vez, configure o rbenv no seu terminal:
 > ```bash
 > echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
 > source ~/.zshrc
@@ -90,3 +90,105 @@ knitting-catalog/
 ```bash
 bundle exec rspec
 ```
+
+---
+
+## Setup no Windows (para quem não é programadora)
+
+Este guia é passo a passo. Você não precisa entender o que cada coisa faz — só seguir a ordem.
+
+### Passo 1 — Instalar o WSL (Linux dentro do Windows)
+
+O programa foi feito para rodar em Linux/macOS. No Windows, a forma mais fácil é usar o **WSL** (Windows Subsystem for Linux), que instala um Linux invisível dentro do seu Windows.
+
+1. Clique na lupa de busca do Windows e procure por **"PowerShell"**
+2. Clique com o botão direito em **Windows PowerShell** e escolha **"Executar como administrador"**
+3. Cole o comando abaixo e pressione Enter:
+   ```
+   wsl --install
+   ```
+4. Quando terminar, **reinicie o computador**
+5. Após reiniciar, uma janela preta vai abrir pedindo para criar um usuário Linux. Escolha um nome simples (sem espaços) e uma senha — anote em algum lugar!
+
+> Se aparecer algum erro durante o `wsl --install`, visite: https://aka.ms/wsl2-install
+
+---
+
+### Passo 2 — Abrir o terminal Linux
+
+1. Clique na lupa e procure por **"Ubuntu"**
+2. Abra o aplicativo Ubuntu — será uma janela preta com texto verde/branco
+3. É nessa janela que você vai digitar todos os comandos a seguir
+
+---
+
+### Passo 3 — Instalar Ruby, Tesseract e Poppler
+
+Na janela do Ubuntu, cole cada bloco de comandos abaixo e pressione Enter. Espere terminar antes de passar para o próximo.
+
+**Atualizar o sistema:**
+```bash
+sudo apt-get update && sudo apt-get upgrade -y
+```
+(vai pedir a senha que você criou no Passo 1)
+
+**Instalar Ruby e dependências:**
+```bash
+sudo apt-get install -y ruby ruby-bundler build-essential
+```
+
+**Instalar as ferramentas de OCR** (necessárias para PDFs que são imagens):
+```bash
+sudo apt-get install -y tesseract-ocr poppler-utils
+```
+
+---
+
+### Passo 4 — Baixar o programa
+
+Ainda na janela do Ubuntu:
+
+```bash
+cd ~
+git clone https://github.com/rozasmarina/knitting-catalog.git
+cd knitting-catalog
+bundle install
+```
+
+O `bundle install` vai instalar as bibliotecas Ruby do programa. Pode demorar alguns minutos.
+
+---
+
+### Passo 5 — Colocar seus PDFs em uma pasta acessível
+
+No Windows, seus arquivos ficam em um caminho como `C:\Users\SeuNome\`. No WSL, essa pasta aparece como `/mnt/c/Users/SeuNome/`.
+
+Por exemplo, se você tiver uma pasta `C:\Users\Marina\Receitas`, no terminal Ubuntu ela será:
+```
+/mnt/c/Users/Marina/Receitas
+```
+
+---
+
+### Passo 6 — Rodar o programa
+
+```bash
+cd ~/knitting-catalog
+bundle exec ruby cataloger.rb /mnt/c/Users/SeuNome/Receitas
+```
+
+Substitua `/mnt/c/Users/SeuNome/Receitas` pelo caminho real da sua pasta de PDFs.
+
+O programa vai criar dois arquivos na pasta `knitting-catalog`:
+- **`catalogo_receitas.csv`** — abre direto no Excel com todos os dados
+- **`pdfs_com_falha.csv`** — lista de PDFs que precisam de revisão manual
+
+---
+
+### Abrir o CSV no Excel
+
+1. Abra o **Explorador de Arquivos** do Windows
+2. Na barra de endereço, cole: `\\wsl$\Ubuntu\home\SeuUsuario\knitting-catalog`
+3. Você verá o arquivo `catalogo_receitas.csv` — clique duas vezes para abrir no Excel
+
+> **Dica:** O arquivo já está no formato correto (UTF-8 com BOM) para o Excel não estragar os acentos.
